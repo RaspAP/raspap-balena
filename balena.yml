@@ -1,0 +1,30 @@
+name: "RaspAP"
+type: "sw.application"
+version: 3.0.5
+description: "The easiest, full-featured wireless router setup for Debian-based devices. Period."
+post-provisioning: >-
+  ## Usage instructions
+  Once your device joins the fleet it will broadcast a wireless AP with the SSID raspi-webgui using the IP address 10.3.141.1.
+  The administration interface is accessible from this IP with the default login credentials.
+  It's important that after your first login you change these creditials in RaspAP's Authentication page.
+  Clients connecting to the AP will be assigned IP address from DHCP range 10.3.141.50 — 10.3.141.254.
+  Documentation for RaspAP may be found at https://docs.raspap.com/
+assets:
+  repository:
+    type: "blob.asset"
+    data:
+      url: "https://github.com/RaspAP/raspap-balena"
+  logo:
+    type: "blob.asset"
+    data:
+      url: "https://raw.githubusercontent.com/RaspAP/raspap-balen/master/logo.png"
+data:
+  applicationConfigVariables:
+    - BALENA_HOST_CONFIG_gpu_mem: 64
+  defaultDeviceType: "raspberrypi3"
+  supportedDeviceTypes:
+    - "raspberry-pi2"
+    - "raspberrypi3"
+    - "raspberrypi3-64"
+    - "raspberrypi4-64"
+    - "nanopi-neo-air"
