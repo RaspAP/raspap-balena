@@ -3,11 +3,16 @@ services:
   raspap:
     container_name: raspap
     image: ghcr.io/raspap/raspap-docker:latest
+    build: .
     privileged: true
     network_mode: host
     cgroup: host
     cap_add:
-      - SYS_ADMIN
+      - SYS_TTY_CONFIG
+      - NET_ADMIN
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    devices:
+      - /dev/tty0
+      - /dev/tty1
     restart: unless-stopped
