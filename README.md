@@ -1,5 +1,5 @@
 # raspap-balena
-The easiest, full-featured wireless router setup for Debian-based devices. Period.
+This repo is purely experimental at the moment. Check back for a general release.
 
 ## Getting Started
 
