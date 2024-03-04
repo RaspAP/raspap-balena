@@ -20,8 +20,6 @@ services:
       - "127.0.0.1"
       - "1.1.1.1"
     privileged: true
-    network_mode: host
-    cgroup: host
     labels:
       io.balena.features.dbus: "1"
     devices:
