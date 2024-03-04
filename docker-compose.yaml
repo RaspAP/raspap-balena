@@ -35,13 +35,13 @@ services:
       RASPAP_WEBGUI_PASS: secret
       RASPAP_WEBGUI_PORT: 80
 
-    # https://github.com/balenablocks/hostname
-    # https://hub.balena.io/blocks/1918776/hostname-rpi
-    hostname:
-      image: bh.cr/g_tomas_migone1/hostname-rpi
-      restart: no
-      labels:
-        io.balena.features.supervisor-api: 1
-      environment:
-        SET_HOSTNAME: raspap
+  # https://github.com/balenablocks/hostname
+  # https://hub.balena.io/blocks/1918776/hostname-rpi
+  hostname:
+    image: bh.cr/g_tomas_migone1/hostname-rpi
+    restart: no
+    labels:
+      io.balena.features.supervisor-api: 1
+    environment:
+      SET_HOSTNAME: raspap
 
