@@ -1,35 +1,21 @@
 version: "3.8"
-
-volumes:
-  raspap_config: {}
-
 services:
   raspap:
-    build: .
-    cap_add:
-      - SYS_TTY_CONFIG
-      - NET_ADMIN
-    volumes:
-      - "raspap_config:/etc/raspap"
-    dns:
-      - "127.0.0.1"
-      - "1.1.1.1"
+    container_name: raspap
+    image: ghcr.io/raspap/raspap-docker:latest
+    #build: .
+    privileged: true
     network_mode: host
-    labels:
-      io.balena.features.dbus: "1"
-    devices:
-      - /dev/tty0
-      - /dev/tty1
-    tmpfs:
-      - /var/log/raspap
-    restart: unless-stopped
-
-  # https://hub.balena.io/blocks/1918776/hostname-rpi
-  hostname:
-    image: bh.cr/g_tomas_migone1/hostname-rpi/0.2.1
-    restart: no
-    labels:
-      io.balena.features.supervisor-api: 1
+    cgroup: host # uncomment when using an ARM device 
     environment:
-      SET_HOSTNAME: raspap
-
+      - RASPAP_SSID=raspap-webgui
+      - RASPAP_SSID_PASS=ChangeMe
+      - RASPAP_COUNTRY=GB
+      - RASPAP_WEBGUI_USER=admin
+      - RASPAP_WEBGUI_PASS=secret
+      - RASPAP_WEBGUI_PORT=80
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    restart: unless-stopped
