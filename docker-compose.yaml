@@ -1,17 +1,21 @@
 version: "2.4"
 
 volumes:
-  raspap_config: {}
+  raspap_config:
+  sys_fs_cgroup:
 
 services:
   raspap:
     build: .
+    restart: unless-stopped
+    ports:
+     - "80:80"
     cap_add:
       - SYS_TTY_CONFIG
       - NET_ADMIN
     volumes:
-      - "raspap_config:/etc/raspap"
-      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+      - raspap_config:/etc/raspap
+      - sys_fs_cgroup:/sys/fs/cgroup:rw
     dns:
       - "127.0.0.1"
       - "1.1.1.1"
@@ -25,7 +29,6 @@ services:
       - /dev/tty1
     tmpfs:
       - /var/log/raspap
-    restart: unless-stopped
 
     # https://hub.balena.io/blocks/1918776/hostname-rpi
     hostname:
