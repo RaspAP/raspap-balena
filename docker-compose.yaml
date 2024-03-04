@@ -1,8 +1,7 @@
 version: "2.4"
 
 volumes:
-  raspap_config:
-  sys_fs_cgroup:
+  raspap_config: {}
 
 services:
   raspap:
@@ -14,11 +13,12 @@ services:
       - SYS_TTY_CONFIG
       - NET_ADMIN
     volumes:
-      - raspap_config:/etc/raspap
-      - sys_fs_cgroup:/sys/fs/cgroup:rw
+      - "raspap_config:/etc/raspap"
     dns:
       - "127.0.0.1"
       - "1.1.1.1"
+    network_mode: host
+    pid: host
     privileged: true
     labels:
       io.balena.features.dbus: "1"
@@ -26,6 +26,8 @@ services:
       - /dev/tty0
       - /dev/tty1
     tmpfs:
+      - /run
+      - /sys/fs/cgroup
       - /var/log/raspap
     environment:
       RASPAP_SSID: raspap-webgui
